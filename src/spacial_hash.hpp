@@ -19,8 +19,7 @@ public:
 	SpacialHash(int cellSize, int width);
 	void insert(Particle* particle);
 	void move(Particle* particle, const sf::Vector2f& newPosition);
-	std::vector<Particle*> getNearby(const sf::Vector2f& position, float radius);
-	void clear();
+	std::vector<Particle*> getNearby(const sf::Vector2f& position);
 };
 
 #endif

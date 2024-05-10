@@ -40,7 +40,25 @@ public:
     }
 
     std::vector<Particle*> getNearby(const sf::Vector2f& position) {
-        int cellHash = hash(position);
-        return map[cellHash]; // Return a copy of the list of particles in the same cell
+        std::vector<Particle*> nearbyParticles;
+
+        // We'll check this cell and its neighbors
+        int baseX = (int)(position.x / cellSize);
+        int baseY = (int)(position.y / cellSize);
+    
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                int x = baseX + dx;
+                int y = baseY + dy;
+                int cellHash = x + y * width;
+
+                auto it = map.find(cellHash);
+                if (it != map.end()) {
+                    nearbyParticles.insert(nearbyParticles.end(), it->second.begin(), it->second.end());
+                }
+            }
+        }
+
+        return nearbyParticles;
     }
 };
