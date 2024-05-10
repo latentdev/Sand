@@ -1,12 +1,10 @@
 #include <SFML/Graphics.hpp>
+#include <format>
+#include <iostream>
+#include <string>
+#include "particle.h"
 
-struct Particle {
-    sf::Vector2f position;
-    sf::Vector2f velocity;
-    sf::Color color;
 
-    Particle(sf::Vector2f pos) : position(pos), velocity(sf::Vector2f(0, 0.1)), color(sf::Color::White) {}
-};
 
 void update(std::vector<Particle>& particles) {
     for (auto& p : particles) {
@@ -17,6 +15,7 @@ void update(std::vector<Particle>& particles) {
         if (p.position.y > 600) { // Assuming the window height is 600
             p.position.y = 600;
             p.velocity.y = 0;
+            std::cout << std::format("Particle has stopped at ({},{})", p.position.x, p.position.y) << std::endl;
         }
     }
 }
