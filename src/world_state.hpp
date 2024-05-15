@@ -12,7 +12,7 @@ private:
 	float gravity;
 	std::vector<Particle> particles;
 	
-	void applyPhysics(Particle& p);
+	void applyPhysics(Particle& p, float deltaTime);
 	void resolveCollisions(Particle& p1, Particle& p2);
 
 public:

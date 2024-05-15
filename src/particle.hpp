@@ -8,7 +8,7 @@ struct Particle {
     float mass;
     float friction;
 
-    Particle(sf::Vector2f pos, float m, float f) : position(pos), velocity(sf::Vector2f(0, 0)), mass(m), friction(f), color(sf::Color::White) {}
+    Particle(sf::Vector2f pos, float mass, float friction) : position(pos), velocity(sf::Vector2f(0, 0)), mass(mass), friction(friction), color(sf::Color::White) {}
 };
 
 #endif

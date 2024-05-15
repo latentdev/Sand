@@ -12,8 +12,8 @@ void update(std::vector<Particle>& particles) {
         p.position += p.velocity;
 
         // Simple ground collision
-        if (p.position.y > 600) { // Assuming the window height is 600
-            p.position.y = 600;
+        if (p.position.y > 1080) { // Assuming the window height is 600
+            p.position.y = 1080;
             p.velocity.y = 0;
             std::cout << std::format("Particle has stopped at ({},{})", p.position.x, p.position.y) << std::endl;
         }
@@ -38,14 +38,14 @@ void handleEvents(sf::RenderWindow& window, std::vector<Particle>& particles) {
             window.close();
         if (event.type == sf::Event::MouseButtonPressed) {
             // Add a particle where the mouse was clicked
-            particles.push_back(Particle(sf::Vector2f(event.mouseButton.x, event.mouseButton.y)));
+            particles.push_back(Particle(sf::Vector2f(event.mouseButton.x, event.mouseButton.y), 1, 1));
         }
     }
 }
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Falling Sand Simulation");
+    sf::RenderWindow window(sf::VideoMode(1080, 1080), "Falling Sand Simulation");
     std::vector<Particle> particles;
 
     while (window.isOpen()) {
