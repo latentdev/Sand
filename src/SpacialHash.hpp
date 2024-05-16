@@ -1,11 +1,10 @@
-#ifndef SPACIAL_HASH_HPP
-#define SPACIAL_HASH_HPP
+#pragma once
 
 #include <vector>
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
 
-#include "particle.h"
+#include "Particle.h"
 
 class SpacialHash {
 private:

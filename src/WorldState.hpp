@@ -1,9 +1,8 @@
-#ifndef WORLD_STATE_HPP
-#define WORLD_STATE_HPP
+#pragma once
 
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include "particle.hpp"
+#include "Particle.hpp"
 
 class WorldState {
 private:

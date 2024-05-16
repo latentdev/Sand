@@ -1,5 +1,5 @@
-#include "spacial_hash.hpp"
-#include "particle.hpp"
+#include "SpacialHash.hpp"
+#include "Particle.hpp"
 
 
 class SpatialHash {

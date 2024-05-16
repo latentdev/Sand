@@ -1,14 +1,14 @@
-#ifndef PARTICLE_HPP
-#define PARTICLE_HPP
+#pragma once
+#include <glm/glm.hpp>
 
 struct Particle {
-    sf::Vector2f position;
-    sf::Vector2f velocity;
-    sf::Color color;
+    glm::vec2 position;
+    glm::vec2 velocity;
+    glm::vec4 color;
     float mass;
     float friction;
+    bool isActive;
 
-    Particle(sf::Vector2f pos, float mass, float friction) : position(pos), velocity(sf::Vector2f(0, 0)), mass(mass), friction(friction), color(sf::Color::White) {}
+    Particle(const glm::vec2& pos, const glm::vec2& vel, const glm::vec4& col, bool active)
+        : position(pos), velocity(vel), color(col), isActive(active) {}
 };
-
-#endif

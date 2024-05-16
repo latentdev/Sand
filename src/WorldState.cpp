@@ -1,4 +1,4 @@
-#include "world_state.hpp"
+#include "WorldState.hpp"
 
 void WorldState::applyPhysics(Particle& p, float deltaTime) {
 	//// Calculate new velocity until terminal velocity is reached
