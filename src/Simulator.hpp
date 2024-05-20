@@ -12,4 +12,5 @@ public:
 private:
     int width, height;
     std::vector<Particle> particles;
+	PhysicsEngine physicsEngine;
 };

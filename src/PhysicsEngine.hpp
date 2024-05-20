@@ -4,5 +4,8 @@
 
 class PhysicsEngine {
 public:
-    void update(std::vector<Particle>& particles, float deltaTime, int width, int height);
+    void updatePhysics(Particle& particle, float deltaTime);
+private:
+	float gravity = 9.81f;
+	float friction = 0.98f;
 };

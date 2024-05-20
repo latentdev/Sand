@@ -6,7 +6,7 @@ void Simulator::update(float deltaTime) {
     for (auto& particle : particles) {
         if (particle.isActive) {
             // Update particle position based on its velocity
-            particle.position += particle.velocity * deltaTime;
+			physicsEngine.updatePhysics(particle, deltaTime);
             
             // Boundary check and handle collisions with the ground
             if (particle.position.y < 0.0f) {

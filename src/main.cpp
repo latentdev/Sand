@@ -27,7 +27,6 @@ int main() {
         lastTime = currentTime;
 
         simulator.update(deltaTime);
-        physicsEngine.update(simulator.getParticles(), deltaTime, 800, 600);
 
         renderer->render(simulator.getParticles());
 
