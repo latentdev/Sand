@@ -2,9 +2,8 @@
 
 #include <vector>
 #include <unordered_map>
-#include <SFML/Graphics.hpp>
 
-#include "Particle.h"
+#include "particle.hpp"
 
 class SpacialHash {
 private:
@@ -12,13 +11,11 @@ private:
 	int cellSize;
 	int width;
 
-	int hash(const sf::Vector2f& position);
+	int hash(const glm::vec2& position);
 
 public:
 	SpacialHash(int cellSize, int width);
 	void insert(Particle* particle);
-	void move(Particle* particle, const sf::Vector2f& newPosition);
-	std::vector<Particle*> getNearby(const sf::Vector2f& position);
+	void move(Particle* particle, const glm::vec2& newPosition);
+	std::vector<Particle*> getNearby(const glm::vec2& position);
 };
-
-#endif

@@ -1,5 +1,5 @@
 #include "SpacialHash.hpp"
-#include "Particle.hpp"
+#include "particle.hpp"
 
 
 class SpatialHash {
@@ -8,7 +8,7 @@ private:
     int cellSize;
     int width;
 
-    int hash(const sf::Vector2f& position) {
+    int hash(const glm::vec2& position) {
         int x = position.x / cellSize;
         int y = position.y / cellSize;
         return x + y * width; // Simple hash function
@@ -22,7 +22,7 @@ public:
         map[cellHash].push_back(particle);
     }
 
-    void move(Particle* particle, const sf::Vector2f& newPosition) {
+    void move(Particle* particle, const glm::vec2& newPosition) {
         int oldHash = hash(particle->position);
         int newHash = hash(newPosition);
 
@@ -39,7 +39,7 @@ public:
         particle->position = newPosition;
     }
 
-    std::vector<Particle*> getNearby(const sf::Vector2f& position) {
+    std::vector<Particle*> getNearby(const glm::vec2& position) {
         std::vector<Particle*> nearbyParticles;
 
         // We'll check this cell and its neighbors

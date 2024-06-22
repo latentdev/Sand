@@ -1,12 +1,16 @@
 #include "PhysicsEngine.hpp"
 
-void PhysicsEngine::updatePhysics(Particle& particle, float deltaTime) {
-    // Apply gravity
-    particle.velocity.y -= gravity * deltaTime;
+namespace sim {
 
-    // Update particle position based on its velocity
-    particle.position += particle.velocity * deltaTime;
+    void PhysicsEngine::updatePhysics(Particle& particle, float deltaTime) {
+        // Apply gravity
+        particle.velocity.y -= gravity * deltaTime;
 
-    // Apply friction or other forces as needed
-    particle.velocity *= friction;
+        // Update particle position based on its velocity
+        particle.position += particle.velocity * deltaTime;
+
+        // Apply friction or other forces as needed
+        particle.velocity *= friction;
+    }
+
 }

@@ -1,4 +1,7 @@
 #include "OpenGLRenderer.hpp"
+#include "glad/gl.h"
+#include "GLFW/glfw3.h"
+
 
 void OpenGLRenderer::init() {
     if (!glfwInit()) {
@@ -10,7 +13,7 @@ void OpenGLRenderer::init() {
         // Handle window creation failure
     }
     glfwMakeContextCurrent(window);
-    gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+    gladLoadGL(glfwGetProcAddress);
 
     // Set up OpenGL state
     glEnable(GL_BLEND);
@@ -21,14 +24,16 @@ void OpenGLRenderer::render(const std::vector<Particle>& particles) {
     glClear(GL_COLOR_BUFFER_BIT);
 
     // Render particles
-    glBegin(GL_POINTS);
-    for (const auto& particle : particles) {
-        if (particle.isActive) {
-            glColor4f(particle.color.r, particle.color.g, particle.color.b, particle.color.a);
-            glVertex2f(particle.position.x, particle.position.y);
-        }
-    }
-    glEnd();
+	glDrawArrays(GL_POINTS, 0, particles.size());
+
+    //glBegin(GL_POINTS);
+    //for (const auto& particle : particles) {
+    //    if (particle.isActive) {
+    //        glColor4f(particle.color.r, particle.color.g, particle.color.b, particle.color.a);
+    //        glVertex2f(particle.position.x, particle.position.y);
+    //    }
+    //}
+    //glEnd();
     glfwSwapBuffers(glfwGetCurrentContext());
 }
 

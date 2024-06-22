@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <SFML/Graphics.hpp>
 #include "Particle.hpp"
 
 class WorldState {
@@ -18,5 +17,3 @@ public:
 	WorldState(int height, int width, float gravity);
 	void update();
 };
-
-#endif

@@ -1,5 +1,6 @@
 #include <memory>
-#include <glm/glm.hpp>
+#include "glm/glm.hpp"
+#include "GLFW/glfw3.h"
 #include "Simulator.hpp"
 #include "PhysicsEngine.hpp"
 #include "IRenderer.hpp"
@@ -8,12 +9,12 @@
 
 int main() {
     std::unique_ptr<IRenderer> renderer = std::make_unique<OpenGLRenderer>();
-    // std::unique_ptr<IRenderer> renderer = astd::make_unique<DirectXRenderer>(); // Switch renderer
+    // std::unique_ptr<IRenderer> renderer = std::make_unique<DirectXRenderer>(); // Switch renderer
 
     renderer->init();
 
-    Simulator simulator(800, 600);
-    PhysicsEngine physicsEngine;
+    sim::Simulator simulator(800, 600);
+    sim::PhysicsEngine physicsEngine;
 
     // Adding particles with random colors
     simulator.addParticle(400, 300, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)); // Red particle

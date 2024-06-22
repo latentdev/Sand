@@ -1,6 +1,4 @@
 #pragma once
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
 #include "Particle.hpp"
 #include "IRenderer.hpp"
 
