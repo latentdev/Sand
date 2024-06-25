@@ -5,21 +5,36 @@
 
 namespace renderer {
 
-    void OpenGLRenderer::init() {
+    bool OpenGLRenderer::init() {
         if (!glfwInit()) {
             // Handle initialization failure
         }
-        GLFWwindow* window = glfwCreateWindow(800, 600, "Sand Simulator", NULL, NULL);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+		auto monitor = getRadialDisplayMonitor();
+        window = glfwCreateWindow(1080, 1080, "Sand Simulator", NULL, NULL);
         if (!window) {
+            std::cerr << "Failed to create GLFW window" << std::endl;
             glfwTerminate();
-            // Handle window creation failure
+            return false;
         }
         glfwMakeContextCurrent(window);
-        gladLoadGL(glfwGetProcAddress);
+        if (!gladLoadGL(glfwGetProcAddress)) {
+            std::cerr << "Failed to initialize GLAD" << std::endl;
+            return false;
+        }
+
+        glViewport(0, 0, 1080, 1080);
+
+        // Compile and link shaders
+        shaderProgram = createShaderProgram();
 
         // Set up OpenGL state
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        //glEnable(GL_BLEND);
+        //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        return true;
     }
 
     void OpenGLRenderer::render(const std::vector<Particle>& particles) {
@@ -56,6 +71,7 @@ namespace renderer {
 
         glDeleteVertexArrays(1, &VAO);
         glDeleteBuffers(1, &VBO);
+        glfwSwapBuffers(window);
     }
 
     void OpenGLRenderer::cleanup() {
