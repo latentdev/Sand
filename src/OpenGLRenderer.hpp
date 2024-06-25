@@ -2,13 +2,15 @@
 #include "Particle.hpp"
 #include "IRenderer.hpp"
 
-class OpenGLRenderer : public IRenderer {
-public:
-    void init() override;
-    void render(const std::vector<Particle>& particles) override;
-    void cleanup() override;
-private:
-    const char* vertexShaderSource = R"(
+namespace renderer {
+
+    class OpenGLRenderer : public IRenderer {
+    public:
+        void init() override;
+        void render(const std::vector<Particle>& particles) override;
+        void cleanup() override;
+    private:
+        const char* vertexShaderSource = R"(
         #version 330 core
         layout (location = 0) in vec2 aPos;
         void main()
@@ -17,8 +19,8 @@ private:
         }
         )";
 
-    // Fragment shader source code
-    const char* fragmentShaderSource = R"(
+        // Fragment shader source code
+        const char* fragmentShaderSource = R"(
         #version 330 core
         out vec4 FragColor;
         uniform vec4 inputColor;
@@ -28,5 +30,10 @@ private:
         }
         )";
 
-    unsigned int shaderProgram;
-};
+        unsigned int shaderProgram;
+
+        unsigned int compileShader(unsigned int type, const char* source);
+        unsigned int createShaderProgram();
+        GLFWmonitor* getRadialDisplayMonitor();
+    };
+}
