@@ -1,4 +1,5 @@
 #include <iostream>
+#include "glm/glm.hpp"
 #include "OpenGLRenderer.hpp"
 #include "glad/gl.h"
 #include "GLFW/glfw3.h"
@@ -14,7 +15,7 @@ namespace renderer {
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		auto monitor = getRadialDisplayMonitor();
-        window = glfwCreateWindow(1080, 1080, "Sand Simulator", NULL, NULL);
+        window = glfwCreateWindow(1080, 1080, "Sand Simulator", monitor, NULL);
         if (!window) {
             std::cerr << "Failed to create GLFW window" << std::endl;
             glfwTerminate();
@@ -30,19 +31,27 @@ namespace renderer {
 
         // Compile and link shaders
         shaderProgram = createShaderProgram();
-
-        // Set up OpenGL state
-        //glEnable(GL_BLEND);
-        //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         return true;
     }
 
+    glm::vec2 OpenGLRenderer::mapToOpenGLCoordinates(glm::vec2 position, int windowWidth, int windowHeight) {
+		float x = (position.x / windowWidth) * 2 - 1;
+		float y = (position.y / windowHeight) * 2 - 1;
+		return glm::vec2(x, y);
+	}
+
     void OpenGLRenderer::render(const std::vector<Particle>& particles) {
         std::vector<float> vertices;
+        std::cout << "Rendering " << particles.size() << " particles" << std::endl;
         for (const auto& particle : particles) {
             if (particle.isActive) {
-                vertices.push_back(particle.position.x);
-                vertices.push_back(particle.position.y);
+                int windowWidth, windowHeight;
+                glfwGetWindowSize(window, &windowWidth, &windowHeight);
+                glm::vec2 mappedPos = mapToOpenGLCoordinates(particle.position, windowWidth, windowHeight);
+                std::cout << "Rendering particle at (" << particle.position.x << ", " << particle.position.y << ")" << std::endl;
+                std::cout << "Mapped position: (" << mappedPos.x << ", " << mappedPos.y << ")" << std::endl;
+                vertices.push_back(mappedPos.x);
+                vertices.push_back(mappedPos.y);
                 vertices.push_back(particle.color.r);
                 vertices.push_back(particle.color.g);
                 vertices.push_back(particle.color.b);
@@ -65,10 +74,15 @@ namespace renderer {
         glEnableVertexAttribArray(1);
 
         glUseProgram(shaderProgram);
-        glPointSize(10.0f);
+        // Set the polygon mode to GL_POINT to ensure points are rendered correctly
+        glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+
+        // Set the point size
+        glPointSize(4.0f);
+        // Draw the points
         glBindVertexArray(VAO);
         glDrawArrays(GL_POINTS, 0, vertices.size() / 6);
-
+        // Cleanup
         glDeleteVertexArrays(1, &VAO);
         glDeleteBuffers(1, &VBO);
         glfwSwapBuffers(window);
